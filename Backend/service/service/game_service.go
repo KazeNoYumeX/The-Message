@@ -65,7 +65,7 @@ func (g *GameService) DrawCard(c context.Context, player *repository.Player, dra
 		card := &repository.PlayerCard{
 			PlayerID: player.ID,
 			CardID:   drawCards[i].ID,
-			Type:     "hand",
+			Type:     enums.Hand,
 		}
 		err := g.PlayerService.CreatePlayerCard(c, card)
 		if err != nil {
@@ -190,7 +190,7 @@ func (g *GameService) CreateGameWithPlayers(c *gin.Context, req request.CreateGa
 		for j := 0; j < 3; j++ {
 			player.PlayerCards = append(player.PlayerCards, repository.PlayerCard{
 				CardID: cards[i*3+j].ID,
-				Type:   "hand",
+				Type:   enums.Hand,
 			})
 		}
 

@@ -137,7 +137,7 @@ func (p *PlayerService) GetPlayersByGameId(c context.Context, id uint) ([]*repos
 
 func (p *PlayerService) GetHandCardId(player *repository.Player, cardId uint) (*repository.PlayerCard, error) {
 	for _, card := range player.PlayerCards {
-		if card.CardID == cardId && card.Type == "hand" {
+		if card.CardID == cardId && card.Type == enums.Hand {
 			return &card, nil
 		}
 	}
@@ -247,7 +247,7 @@ func (p *PlayerService) AcceptCard(c context.Context, playerId uint, accept bool
 		_, err := p.PlayerCardRepo.CreatePlayerCard(c, &repository.PlayerCard{
 			PlayerID: playerId,
 			CardID:   cardId,
-			Type:     "intelligence",
+			Type:     enums.Table,
 		})
 		if err != nil {
 			return false, err
@@ -280,7 +280,7 @@ func (p *PlayerService) CheckWin(c context.Context, playerId uint) (*repository.
 	for _, player := range player.Game.Players {
 		win = 0
 		for _, card := range player.PlayerCards {
-			if card.Type == enums.Intelligence && player.IdentityCard == enums.MilitaryAgency && card.Card.Color == enums.Red {
+			if card.Type == enums.Table && player.IdentityCard == enums.MilitaryAgency && card.Card.Color == enums.Red {
 				win++
 				if win == 3 {
 					winPlayer = &player
@@ -288,7 +288,7 @@ func (p *PlayerService) CheckWin(c context.Context, playerId uint) (*repository.
 				}
 			}
 
-			if card.Type == enums.Intelligence && player.IdentityCard == enums.UndercoverFront && card.Card.Color == enums.Blue {
+			if card.Type == enums.Table && player.IdentityCard == enums.UndercoverFront && card.Card.Color == enums.Blue {
 				win++
 				if win == 3 {
 					winPlayer = &player
@@ -296,7 +296,7 @@ func (p *PlayerService) CheckWin(c context.Context, playerId uint) (*repository.
 				}
 			}
 
-			if card.Type == enums.Intelligence && player.IdentityCard == enums.MilitaryAgency && card.Card.Color == enums.Red || card.Card.Color == enums.Blue {
+			if card.Type == enums.Table && player.IdentityCard == enums.MilitaryAgency && card.Card.Color == enums.Red || card.Card.Color == enums.Blue {
 				win++
 				if win == 5 {
 					winPlayer = &player

@@ -36,7 +36,7 @@ func SeederGameWithPlayers(db *gorm.DB) {
 		for j := 0; j < 3; j++ {
 			player.PlayerCards = append(player.PlayerCards, repository.PlayerCard{
 				CardID: cards[i*3+j].ID,
-				Type:   "hand",
+				Type:   enums.Hand,
 			})
 		}
 		game.Players = append(game.Players, player)

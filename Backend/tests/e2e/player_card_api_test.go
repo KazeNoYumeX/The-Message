@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Game-as-a-Service/The-Message/enums"
 	"github.com/Game-as-a-Service/The-Message/service/repository"
 	"github.com/stretchr/testify/assert"
 )
@@ -28,7 +29,7 @@ func (suite *IntegrationTestSuite) TestGetPlayerCards() {
 	_, err = suite.playerCardRepo.CreatePlayerCard(context.TODO(), &repository.PlayerCard{
 		PlayerID: ID,
 		CardID:   ID,
-		Type:     "hand",
+		Type:     enums.Hand,
 	})
 	if err != nil {
 		panic(err)
